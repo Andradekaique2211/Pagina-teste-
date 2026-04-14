@@ -1,7 +1,8 @@
 services:
   - type: web
     name: scaling-sales-saas
-    env: node
+    plan: free
+    runtime: node
     buildCommand: npm install
     startCommand: node src/server.js
     envVars:
@@ -10,6 +11,4 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: ADMIN_PASSWORD
-        sync: false
       - key: OWNER_WHATSAPP
-        sync: false
