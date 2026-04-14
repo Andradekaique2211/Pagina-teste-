@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Scaling Sales - Transformamos seu site em uma máquina de vendas com tecnologia e performance de elite.">
+  <title>Scaling Sales | Performance & Escala Digital</title>
+  
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://suapagina.com.br/">
+  <meta property="og:title" content="Scaling Sales | Sua Máquina de Vendas Digital">
+  <meta property="og:description" content="Quer escalar suas vendas? Conheça a estratégia que está transformando negócios comuns em máquinas de escala.">
+  <meta property="og:image" content="https://imgur.com/your-image-here.png"> <!-- Troque por uma imagem real do seu site depois -->
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Scaling Sales | Performance & Escala Digital">
+  <meta property="twitter:description" content="Transformamos seu site em uma máquina de vendas.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-dark: #040914; /* Deep Petrol Blue / Black */
+      --cyan: #00e5ff;
+      --teal: #00bfa5;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      
+      --gradient: linear-gradient(135deg, var(--cyan) 0%, var(--teal) 100%);
+      --glow-cyan: 0 0 25px rgba(0, 229, 255, 0.4);
+      --glow-teal: 0 0 25px rgba(0, 191, 165, 0.4);
+      --glass-bg: rgba(0, 229, 255, 0.03);
+      --glass-border: rgba(0, 229, 255, 0.15);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, .logo, .btn {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Typography */
+    .text-neon {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 30px rgba(0, 229, 255, 0.3);
+    }
+    
+    .subtitle {
+      color: var(--cyan);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .subtitle::before, .subtitle::after {
+      content: ''; display: block; width: 30px; height: 1px; background: var(--cyan);
+      box-shadow: var(--glow-cyan);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 40px;
+      background: var(--gradient);
+      color: #000;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      border: none;
+      box-shadow: var(--glow-cyan);
+      cursor: pointer;
+      z-index: 1;
+    }
+    .btn:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 10px 40px rgba(0, 229, 255, 0.6);
+      color: #000;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      padding: 20px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(4, 9, 20, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    header .logo {
+      font-size: 24px; font-weight: 800; color: #fff; text-decoration: none;
+      display: flex; align-items: center; gap: 8px; letter-spacing: 1px;
+    }
+    header .logo i { color: var(--cyan); font-size: 28px; filter: drop-shadow(0 0 10px var(--cyan)); }
+    
+    .header-wa {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 24px; color: var(--cyan);
+      border: 1px solid var(--cyan); border-radius: 50px;
+      text-decoration: none; font-weight: 600; font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease; box-shadow: inset 0 0 10px rgba(0, 229, 255, 0.1);
+    }
+    .header-wa:hover { background: var(--cyan); color: #000; box-shadow: var(--glow-cyan); }
+
+    /* Animated Tech Background */
+    .tech-bg {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;
+      background: radial-gradient(circle at 50% 50%, #0a192f 0%, var(--bg-dark) 80%);
+    }
+    .grid-overlay {
+      position: absolute; width: 200%; height: 200%; top: -50%; left: -50%;
+      background-image: 
+        linear-gradient(rgba(0, 229, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+      animation: grid-move 20s linear infinite;
+    }
+    @keyframes grid-move { 0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); } 100% { transform: perspective(500px) rotateX(60deg) translateY(40px) translateZ(-200px); } }
+
+    /* Hero */
+    .hero {
+      position: relative; padding: 200px 5% 120px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;
+    }
+    .hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 24px; max-width: 900px; font-weight: 800; letter-spacing: -1px; }
+    .hero p { font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--text-muted); max-width: 600px; margin-bottom: 40px; font-weight: 400; }
+    
+    /* Glowing Animated Chart Mockup in Hero */
+    .hero-chart {
+      margin-top: 50px; position: relative; width: 100%; max-width: 600px; height: 150px;
+    }
+    .chart-line {
+      fill: none; stroke: url(#chart-gradient); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round;
+      filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.8));
+      stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: drawLine 3s ease-out forwards infinite alternate;
+    }
+    .chart-point { fill: var(--cyan); filter: drop-shadow(0 0 10px var(--cyan)); animation: pulsePoint 2s infinite alternate; }
+    @keyframes drawLine { to { stroke-dashoffset: 0; } }
+    @keyframes pulsePoint { from { r: 4; opacity: 0.6; } to { r: 8; opacity: 1; } }
+
+    /* Services / Tech Cards */
+    .section { padding: 100px 5%; position: relative; z-index: 2; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-header h2 { font-size: 3rem; font-weight: 800; }
+
+    .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+    
+    .tech-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 40px 30px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+    .tech-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: 20px; padding: 2px;
+      background: var(--gradient);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .tech-card:hover { transform: translateY(-10px); background: rgba(0, 229, 255, 0.08); }
+    .tech-card:hover::before { opacity: 1; }
+    
+    .card-icon {
+      font-size: 48px; color: var(--cyan); margin-bottom: 20px; display: inline-block;
+      filter: drop-shadow(0 0 15px rgba(0, 229, 255, 0.5));
+    }
+    .tech-card h3 { font-size: 1.5rem; margin-bottom: 15px; font-weight: 700; color: #fff; }
+    .tech-card p { color: var(--text-muted); font-size: 1rem; }
+
+    /* Results / Data Points */
+    .data-section { position: relative; padding: 80px 0; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); background: rgba(4, 9, 20, 0.5); }
+    .data-grid { display: flex; flex-wrap: wrap; justify-content: space-evenly; gap: 40px; text-align: center; }
+    .data-node { position: relative; }
+    .data-node h4 { font-size: 4rem; line-height: 1; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.2)); }
+    .data-node p { color: var(--teal); font-weight: 600; font-family: 'Poppins', sans-serif; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; margin-top: 5px; }
+
+    /* Large CTA / Authority Area */
+    .cta-big { padding: 120px 5%; }
+    .cta-box {
+      max-width: 1000px; margin: 0 auto; text-align: center;
+      background: radial-gradient(circle at center, rgba(0, 229, 255, 0.1) 0%, rgba(4, 9, 20, 0.8) 70%);
+      border: 1px solid var(--cyan);
+      padding: 80px 40px; border-radius: 30px;
+      box-shadow: var(--glow-cyan), inset 0 0 60px rgba(0, 229, 255, 0.05);
+      position: relative; overflow: hidden;
+    }
+    .cta-box h2 { font-size: 3.5rem; margin-bottom: 20px; font-weight: 800; line-height: 1.1; }
+    .cta-box p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+    /* Floating WhatsApp */
+    .float-wa {
+      position: fixed; bottom: 30px; right: 30px;
+      background: var(--gradient); color: #000;
+      width: 65px; height: 65px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; text-decoration: none;
+      box-shadow: var(--glow-teal);
+      z-index: 9999; transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    .float-wa:hover { transform: scale(1.1); box-shadow: 0 0 40px rgba(0, 229, 255, 0.8); }
+
+    /* Footer */
+    footer { text-align: center; padding: 30px; border-top: 1px solid var(--glass-border); color: #475569; font-size: 0.9rem; font-family: 'Poppins', sans-serif; }
+    footer span { color: var(--teal); font-weight: 600; }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .cta-box h2 { font-size: 2.2rem; }
+      header .header-wa span { display: none; }
+      .float-wa { width: 55px; height: 55px; font-size: 30px; bottom: 20px; right: 20px; }
+      .tech-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div class="tech-bg">
+    <div class="grid-overlay"></div>
+  </div>
+
+  <header data-aos="fade-down" data-aos-duration="1000">
+    <a href="#" class="logo">
+      <i class="ph-duotone ph-planet"></i> Scaling Sales
+    </a>
+    <div style="display: flex; gap: 15px;">
+      <a href="/login.html" class="header-wa" style="border-color: #f59e0b; color: #f59e0b; box-shadow: inset 0 0 10px rgba(245, 158, 11, 0.1);">
+        <i class="ph-bold ph-users"></i> <span>Área de Afiliados</span>
+      </a>
+      <a href="https://wa.me/5516992720495?text=Olá,%20tenho%20interesse%20em%20escalar%20minhas%20vendas." target="_blank" class="header-wa">
+        <i class="ph-bold ph-whatsapp-logo"></i> <span>Conversar com Especialista</span>
+      </a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <span class="subtitle" data-aos="fade-up">Inteligência & Alta Performance</span>
+    <h1 data-aos="fade-up" data-aos-delay="100">Transforme Seu Negócio Em Uma <span class="text-neon">Máquina de Vendas</span> Com Tecnologia e Dados</h1>
+    <p data-aos="fade-up" data-aos-delay="200">Não criamos apenas sites. Desenvolvemos ecossistemas digitais de alta conversão para líderes e empresas que exigem resultados fora da curva.</p>
+    
+    <div data-aos="fade-up" data-aos-delay="300" style="margin-top: 10px;">
+      <a href="https://wa.me/5516992720495" target="_blank" class="btn">
+        <i class="ph-bold ph-trend-up"></i> Escalar Vendas
+      </a>
+    </div>
+
+    <!-- Futuristic Chart Mockup -->
+    <div class="hero-chart" data-aos="zoom-in" data-aos-delay="500">
+      <svg width="100%" height="150" viewBox="0 0 600 150">
+        <defs>
+          <linearGradient id="chart-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00e5ff" />
+            <stop offset="100%" stop-color="#00bfa5" />
+          </linearGradient>
+        </defs>
+        <!-- Grid lines -->
+        <line x1="0" y1="120" x2="600" y2="120" stroke="rgba(0,229,255,0.1)" stroke-width="1"/>
+        <line x1="0" y1="80" x2="600" y2="80" stroke="rgba(0,229,255,0.1)" stroke-width="1"/>
+        <line x1="0" y1="40" x2="600" y2="40" stroke="rgba(0,229,255,0.1)" stroke-width="1"/>
+        <!-- Data Line -->
+        <path class="chart-line" d="M0,130 L100,110 L200,125 L300,70 L400,90 L500,40 L600,10" />
+        <!-- Data Points Nodes -->
+        <circle class="chart-point" cx="100" cy="110" r="5" style="animation-delay: 0s" />
+        <circle class="chart-point" cx="200" cy="125" r="5" style="animation-delay: 0.5s" />
+        <circle class="chart-point" cx="300" cy="70" r="5" style="animation-delay: 1s" />
+        <circle class="chart-point" cx="400" cy="90" r="5" style="animation-delay: 1.5s" />
+        <circle class="chart-point" cx="500" cy="40" r="5" style="animation-delay: 2s" />
+        <circle class="chart-point" cx="600" cy="10" r="5" style="animation-delay: 2.5s" />
+      </svg>
+    </div>
+  </section>
+
+  <section id="tecnologia" class="section">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <span class="subtitle">Estrutura Global</span>
+        <h2>Arquitetura Baseada em <span class="text-neon">Conversão</span></h2>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-card" data-aos="fade-up" data-aos-delay="100">
+          <i class="ph-duotone ph-graph card-icon"></i>
+          <h3>Data-Driven Design</h3>
+          <p>Decisões tomadas com base em mapas de calor e testes A/B. Cada pixel do seu site existe para persuadir e converter o usuário em cliente.</p>
+        </div>
+
+        <div class="tech-card" data-aos="fade-up" data-aos-delay="200">
+          <i class="ph-duotone ph-globe-hemisphere-west card-icon"></i>
+          <h3>Escalabilidade Global</h3>
+          <p>Hospedagem em nuvem de alto desempenho e CDN global. Seu site com velocidade máxima em qualquer lugar do mundo, sem quedas ou atrasos.</p>
+        </div>
+
+        <div class="tech-card" data-aos="fade-up" data-aos-delay="300">
+          <i class="ph-duotone ph-cpu card-icon"></i>
+          <h3>UX Tecnológica</h3>
+          <p>Micro-interações, carregamento progressivo e fluxos otimizados. Uma experiência impecável que transmite autoridade máxima para sua marca.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="data-section">
+    <div class="container">
+      <div class="data-grid">
+        <div class="data-node" data-aos="zoom-in" data-aos-delay="100">
+          <h4>+5mil</h4>
+          <p>Leads Gerados Globalmente</p>
+        </div>
+        <div class="data-node" data-aos="zoom-in" data-aos-delay="200">
+          <h4>+%</h4>
+          <p>Aumento de ROI</p>
+        </div>
+        <div class="data-node" data-aos="zoom-in" data-aos-delay="300">
+          <h4>60%</h4>
+          <p>Infraestrutura Anti-Queda</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-big">
+    <div class="cta-box" data-aos="flip-up" data-aos-duration="1000">
+      <span class="subtitle" style="justify-content: center;">Conecte-se com o Futuro</span>
+      <h2>Seu Concorrente Está <span class="text-neon">Escalando.</span> E Você?</h2>
+      <p>Desenvolvemos projetos exclusivos para players que não aceitam o padrão do mercado. Fale diretamente com nossos engenheiros de conversão e desenhe o futuro das suas vendas.</p>
+      
+      <div style="margin-top: 40px;">
+        <a href="https://wa.me/5516992720495" target="_blank" class="btn" style="padding: 20px 50px; font-size: 1.3rem;">
+          <i class="ph-bold ph-whatsapp-logo" style="font-size: 28px;"></i>
+          Falar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/5516992720495?text=Olá,%20gostaria%20de%20iniciar%20um%20projeto%20com%20vocês!" target="_blank" class="float-wa">
+    <i class="ph-fill ph-whatsapp-logo"></i>
+  </a>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 <span>Scaling Sales</span>. Engenharia de Dados & Conversão Global.</p>
+    </div>
+  </footer>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true,
+      offset: 100,
+      duration: 800,
+      easing: 'ease-in-out-quad',
+    });
+  </script>
+  <!-- Affiliate Tracking JS -->
+  <script src="/js/tracking.js"></script>
+</body>
+</html>

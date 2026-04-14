@@ -1,0 +1,62 @@
+{
+  "users": [
+    {
+      "id": "ADMIN",
+      "name": "Administrador Scaling Sales",
+      "whatsapp": "master",
+      "password": "$2a$10$MdCXgm/PqykBNxpSIv2wO.BHkq.5zOq/6nlXSxpWuml3WsytXzAGy",
+      "pix": "",
+      "role": "admin",
+      "status": "active",
+      "created_at": "2026-04-14T19:19:42.102Z"
+    },
+    {
+      "id": "AF75666419",
+      "name": "kaique andrade",
+      "whatsapp": "33356546654454",
+      "password": "$2a$10$5WVOvmRwBf9HtjVQ4Oe31eyAryf4vkOVU5SZoSAdIqLJW.Z17SHwi",
+      "pix": "345365435545644",
+      "role": "affiliate",
+      "status": "active",
+      "created_at": "2026-04-14T19:25:56.747Z"
+    }
+  ],
+  "leads": [
+    {
+      "id": 1776196095758,
+      "affiliate_id": "AF75666419",
+      "client_contact": "Lead_4748",
+      "value": 1000,
+      "status": "paid",
+      "created_at": "2026-04-14T19:48:15.758Z"
+    }
+  ],
+  "visits": [
+    {
+      "id": 1776196037330,
+      "affiliate_id": "ADMIN",
+      "created_at": "2026-04-14T19:47:17.330Z"
+    },
+    {
+      "id": 1776196092844,
+      "affiliate_id": "AF75666419",
+      "created_at": "2026-04-14T19:48:12.844Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": 1776194756748,
+      "type": "new_affiliate",
+      "message": "Novo afiliado aguardando aprovação: kaique andrade",
+      "read": true,
+      "created_at": "2026-04-14T19:25:56.748Z"
+    },
+    {
+      "id": 1776196095759,
+      "type": "new_lead",
+      "message": "Novo lead do afiliado AF75666419: Lead_4748",
+      "read": true,
+      "created_at": "2026-04-14T19:48:15.758Z"
+    }
+  ]
+}

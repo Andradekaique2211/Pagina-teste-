@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Afiliado | Scaling Sales</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg: #040914; --panel: #0a1120;
+      --cyan: #00e5ff; --teal: #00bfa5;
+      --text: #f8fafc; --muted: #94a3b8;
+      --border: rgba(0, 229, 255, 0.1);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh;}
+    
+    /* Sidebar */
+    .sidebar { width: 250px; background: var(--panel); border-right: 1px solid var(--border); padding: 30px 20px; }
+    .logo { font-family: 'Poppins'; font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 40px; display:flex; align-items:center; gap:10px;}
+    .logo i { color: var(--cyan); }
+    .nav-item { display: flex; align-items: center; gap: 12px; color: var(--muted); padding: 12px 15px; border-radius: 8px; text-decoration: none; margin-bottom: 10px; transition: 0.3s; }
+    .nav-item:hover, .nav-item.active { background: rgba(0,229,255,0.1); color: var(--cyan); }
+    
+    /* Main */
+    .main { flex: 1; padding: 40px; overflow-y: auto; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+    header h1 { font-family: 'Poppins'; font-size: 2rem; }
+    
+    .link-box { background: rgba(0,229,255,0.05); border: 1px dashed var(--cyan); padding: 15px 20px; border-radius: 8px; display: inline-flex; align-items:center; gap:20px; margin-bottom: 30px; }
+    .link-box span { font-family: monospace; color: var(--cyan); }
+    .copy-btn { background: var(--cyan); color:#000; border:none; padding:8px 15px; border-radius:5px; font-weight:600; cursor:pointer;}
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 40px; }
+    .card { background: var(--panel); border: 1px solid var(--border); padding: 25px; border-radius: 12px; position: relative;}
+    .card-title { color: var(--muted); font-size: 0.85rem; text-transform: uppercase; margin-bottom: 10px; }
+    .card-value { font-family: 'Poppins'; font-size: 2.2rem; font-weight: 700; color: #fff; }
+    .card-value.green { color: var(--teal); }
+    .card-value.orange { color: #f59e0b; }
+
+    .chart-container { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 40px; width: 100%; height: 350px;}
+
+    .kit-divulgacao { background: linear-gradient(135deg, rgba(0, 229, 255, 0.05) 0%, rgba(0, 191, 165, 0.05) 100%); border: 1px solid var(--cyan); padding: 25px; border-radius: 12px; margin-bottom: 40px;}
+    .kit-divulgacao h3 { font-family: 'Poppins'; margin-bottom: 10px; color: var(--cyan); }
+    .kit-divulgacao p { font-size: 0.9rem; color: var(--muted); margin-bottom: 15px; }
+    .script-box { background: #000; border: 1px solid var(--border); padding: 15px; border-radius: 8px; font-size: 0.9rem; color: #cbd5e1; margin-bottom: 10px; }
+
+    table { width: 100%; border-collapse: collapse; background: var(--panel); border-radius: 12px; overflow: hidden; }
+    th, td { padding: 15px 20px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: rgba(255,255,255,0.02); color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 0.8rem; }
+    .status { padding: 5px 10px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; }
+    .status.pending { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
+    .status.closed { background: rgba(0, 229, 255, 0.2); color: #00e5ff; }
+    .status.paid { background: rgba(0, 191, 165, 0.2); color: #00bfa5; }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <div class="logo"><i class="ph-fill ph-planet"></i> Scaling Sales</div>
+    <a href="#" class="nav-item active"><i class="ph-bold ph-squares-four"></i> Dashboard</a>
+    <a href="#" class="nav-item" onclick="logout()"><i class="ph-bold ph-sign-out"></i> Sair</a>
+  </div>
+
+  <div class="main">
+    <header>
+      <h1>Visão Geral</h1>
+      <div style="color:var(--muted)">Bem-vindo, <span id="user-name" style="color:#fff; font-weight:bold;">...</span></div>
+    </header>
+
+    <div class="link-box">
+      <div>
+        <div style="font-size:0.8rem; color:var(--muted); margin-bottom:5px;">Seu Link de Afiliado Exclusivo</div>
+        <span id="affiliate-link">...</span>
+      </div>
+      <button class="copy-btn" onclick="copyLink()">Copiar Link</button>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-title">Visitas Totais (Cliques)</div>
+        <div class="card-value orange" id="val-visits">0</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Leads (Iniciar Whats)</div>
+        <div class="card-value" id="val-leads">0</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Comissão Disponível</div>
+        <div class="card-value green" id="val-available">R$ 0,00</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Comissão Total (Paga)</div>
+        <div class="card-value" id="val-total-comm">R$ 0,00</div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <canvas id="performanceChart"></canvas>
+    </div>
+
+    <div class="kit-divulgacao">
+      <h3><i class="ph-fill ph-megaphone"></i> Kit de Divulgação Copia & Cola</h3>
+      <p>Use o roteiro abaixo no seu WhatsApp ou Instagram. Seu link já está incluído!</p>
+      <div class="script-box" id="script-text">
+        Fala pessoal! Descobri uma engenharia de dados que promete aumentar suas conversões na internet muito agressivamente. O design é surreal.<br><br>Quem quiser dar uma olhada no projeto, entra aqui: <span id="script-link" style="color: var(--teal)">link</span>
+      </div>
+      <button class="copy-btn" onclick="copyScript()">Copiar Texto Completo</button>
+    </div>
+
+    <h2 style="font-family:'Poppins'; margin-bottom:20px;">Meus Leads Recentes</h2>
+    <table id="leads-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Data</th>
+          <th>Contato Cliente</th>
+          <th>Valor Fechado</th>
+          <th>Comissão Estimada</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- JS Injects Here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const token = localStorage.getItem('ss_token');
+    const myId = localStorage.getItem('ss_id');
+    
+    if(!token) window.location.href = '/login.html';
+
+    document.getElementById('user-name').innerText = localStorage.getItem('ss_name');
+    
+    const url = window.location.origin + '/?ref=' + myId;
+    document.getElementById('affiliate-link').innerText = url;
+    document.getElementById('script-link').innerText = url;
+
+    function copyLink() {
+      navigator.clipboard.writeText(url);
+      alert('Link copiado!');
+    }
+
+    function copyScript() {
+      const text = document.getElementById('script-text').innerText;
+      navigator.clipboard.writeText(text);
+      alert('Roteiro copiado! Cole nas suas redes.');
+    }
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = '/login.html';
+    }
+
+    async function loadData() {
+      try {
+        const res = await fetch('/api/dashboard', {
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        if(res.status === 401 || res.status === 403) { logout(); return; }
+        
+        const data = await res.json();
+
+        // Se afiliado pendente, mostrar aviso de aprovação
+        if(data.affiliateStatus === 'pending') {
+          document.querySelector('.main').innerHTML = `
+            <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:70vh; text-align:center;">
+              <div style="font-size:4rem; margin-bottom:20px;">⏳</div>
+              <h2 style="font-family:'Poppins'; font-size:1.8rem; margin-bottom:15px;">Aguardando Aprovação</h2>
+              <p style="color:var(--muted); max-width:450px; line-height:1.7;">
+                Seu cadastro foi recebido com sucesso! O administrador irá aprovar sua conta em breve e você receberá seu link exclusivo de afiliado.
+              </p>
+              <p style="color:#f59e0b; margin-top:20px; font-size:0.9rem;">Seu ID: <strong>${myId}</strong></p>
+              <button onclick="logout()" style="margin-top:30px; background:transparent; border:1px solid var(--muted); color:var(--muted); padding:10px 20px; border-radius:8px; cursor:pointer;">Sair</button>
+            </div>
+          `;
+          return;
+        }
+        
+        document.getElementById('val-visits').innerText = data.metrics.totalVisits || 0;
+        document.getElementById('val-leads').innerText = data.metrics.totalLeads;
+        document.getElementById('val-total-comm').innerText = 'R$ ' + data.metrics.totalCommission.toFixed(2);
+        document.getElementById('val-available').innerText = 'R$ ' + data.metrics.availableCommission.toFixed(2);
+
+        // Populate Table
+        const tbody = document.querySelector('#leads-table tbody');
+        tbody.innerHTML = '';
+        data.leads.forEach(lead => {
+          const tr = document.createElement('tr');
+          const d = new Date(lead.created_at).toLocaleDateString('pt-BR');
+          let statusText = 'Pendente';
+          if(lead.status === 'closed') statusText = 'Comissão Liberada';
+          if(lead.status === 'paid') statusText = 'Pago';
+
+          tr.innerHTML = `
+            <td>#${lead.id}</td>
+            <td>${d}</td>
+            <td>${lead.client_contact}</td>
+            <td>R$ ${lead.value.toFixed(2)}</td>
+            <td style="color:var(--cyan)">R$ ${(lead.value * 0.25).toFixed(2)}</td>
+            <td><span class="status ${lead.status}">${statusText}</span></td>
+          `;
+          tbody.appendChild(tr);
+        });
+
+        // Initialize Graphic Chart
+        initChart(data.metrics.totalVisits || 0, data.metrics.totalLeads);
+
+      } catch(err) { console.error('Erro ao buscar dados', err); }
+    }
+
+    function initChart(visits, leads) {
+      const ctx = document.getElementById('performanceChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Visitas (Cliques)', 'Leads (Intenção)', 'Conversões Reais'],
+          datasets: [{
+            label: 'Métricas do Seu Funil',
+            data: [visits, leads, Math.floor(leads * 0.3)], // Mock conversion drop
+            backgroundColor: [
+              'rgba(245, 158, 11, 0.5)',
+              'rgba(0, 229, 255, 0.5)',
+              'rgba(0, 191, 165, 0.5)'
+            ],
+            borderColor: [
+              'rgba(245, 158, 11, 1)',
+              'rgba(0, 229, 255, 1)',
+              'rgba(0, 191, 165, 1)'
+            ],
+            borderWidth: 2,
+            borderRadius: 5
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+            x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+          }
+        }
+      });
+    }
+
+    loadData();
+  </script>
+</body>
+</html>

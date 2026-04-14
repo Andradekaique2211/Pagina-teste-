@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acesso Afiliado | Scaling Sales</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <style>
+    :root {
+      --bg-dark: #040914; --cyan: #00e5ff; --teal: #00bfa5;
+      --gradient: linear-gradient(135deg, var(--cyan) 0%, var(--teal) 100%);
+      --glass-bg: rgba(0, 229, 255, 0.03); --glass-border: rgba(0, 229, 255, 0.15);
+      --glow-cyan: 0 0 25px rgba(0, 229, 255, 0.4);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    
+    .auth-container {
+      background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px;
+      padding: 50px 40px; width: 100%; max-width: 450px; text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5); backdrop-filter: blur(10px);
+    }
+    h2 { font-family: 'Poppins', sans-serif; font-size: 2rem; margin-bottom: 30px; }
+    h2 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
+    .input-group { margin-bottom: 20px; text-align: left; }
+    label { display: block; margin-bottom: 8px; color: #94a3b8; font-size: 0.9rem; }
+    input { width: 100%; padding: 14px; background: rgba(0,0,0,0.5); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; font-family: 'Inter'; outline: none; transition: border-color 0.3s; }
+    input:focus { border-color: var(--cyan); box-shadow: 0 0 10px rgba(0, 229, 255, 0.2); }
+    
+    .btn { width: 100%; padding: 15px; margin-top: 10px; background: var(--gradient); color: #000; border: none; border-radius: 8px; font-weight: 700; font-family: 'Poppins'; cursor: pointer; transition: transform 0.3s; }
+    .btn:hover { transform: translateY(-3px); box-shadow: var(--glow-cyan); }
+    
+    .toggle { margin-top: 20px; color: #94a3b8; font-size: 0.9rem; cursor: pointer; }
+    .toggle span { color: var(--cyan); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <div class="auth-container" id="login-box">
+    <h2>Acesso <span>Afiliado</span></h2>
+    <form id="login-form">
+      <div class="input-group">
+        <label>Seu ID de Afiliado (Ex: AF16...)</label>
+        <input type="text" id="login_id" required placeholder="AF123456">
+      </div>
+      <div class="input-group">
+        <label>Senha</label>
+        <input type="password" id="login_pass" required placeholder="Sua senha">
+      </div>
+      <button type="submit" class="btn">Entrar na Dashboard</button>
+    </form>
+    <div class="toggle" onclick="toggleView()">Não tem conta? <span>Cadastre-se</span></div>
+  </div>
+
+  <div class="auth-container" id="register-box" style="display: none;">
+    <h2>Seja <span>Parceiro</span></h2>
+    <form id="register-form">
+      <div class="input-group">
+        <label>Nome Completo</label>
+        <input type="text" id="reg_name" required placeholder="João Silva">
+      </div>
+      <div class="input-group">
+        <label>WhatsApp</label>
+        <input type="text" id="reg_wa" required placeholder="16999999999">
+      </div>
+      <div class="input-group">
+        <label>Chave PIX <span style="color:#00e5ff; font-size:0.8rem;">(para receber comissões)</span></label>
+        <input type="text" id="reg_pix" required placeholder="CPF, e-mail, telefone ou chave aleatória">
+      </div>
+      <div class="input-group">
+        <label>Crie uma Senha</label>
+        <input type="password" id="reg_pass" required placeholder="******">
+      </div>
+      <button type="submit" class="btn">Gerar ID de Afiliado</button>
+    </form>
+    <div class="toggle" onclick="toggleView()">Já tem conta? <span>Faça Login</span></div>
+  </div>
+
+  <script>
+    function toggleView() {
+      document.getElementById('login-box').style.display = document.getElementById('login-box').style.display === 'none' ? 'block' : 'none';
+      document.getElementById('register-box').style.display = document.getElementById('register-box').style.display === 'none' ? 'block' : 'none';
+    }
+
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('reg_name').value;
+      const whatsapp = document.getElementById('reg_wa').value;
+      const pix = document.getElementById('reg_pix').value;
+      const password = document.getElementById('reg_pass').value;
+
+      try {
+        const res = await fetch('/api/cadastro', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, whatsapp, pix, password })
+        });
+        const data = await res.json();
+        
+        if (data.id) {
+          alert('✅ Conta criada!\n\n🆔 Seu ID de Afiliado:\n' + data.id + '\n\n⚠️ Guarde este ID para fazer login!');
+          toggleView();
+          document.getElementById('login_id').value = data.id;
+        } else {
+          alert('Erro: ' + data.error);
+        }
+      } catch(err) {
+        alert('Erro no servidor');
+      }
+    });
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = document.getElementById('login_id').value;
+      const password = document.getElementById('login_pass').value;
+
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, password })
+        });
+        const data = await res.json();
+        
+        if (data.token) {
+          localStorage.setItem('ss_token', data.token);
+          localStorage.setItem('ss_name', data.name);
+          localStorage.setItem('ss_id', id);
+          
+          if(data.role === 'admin') window.location.href = '/admin.html';
+          else window.location.href = '/dashboard.html';
+        } else {
+          alert('Erro: ' + data.error);
+        }
+      } catch(err) {
+        alert('Erro no servidor');
+      }
+    });
+  </script>
+</body>
+</html>
