@@ -11,4 +11,6 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: ADMIN_PASSWORD
+        placeholder: "Defina sua senha de admin aqui"
       - key: OWNER_WHATSAPP
+        placeholder: "Seu WhatsApp (Ex: 5516999999999)"
