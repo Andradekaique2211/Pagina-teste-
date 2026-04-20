@@ -11,6 +11,6 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: ADMIN_PASSWORD
-        placeholder: "Defina sua senha de admin aqui"
+        value: ScalingSales123!
       - key: OWNER_WHATSAPP
-        placeholder: "Seu WhatsApp (Ex: 5516999999999)"
+        value: 5516992720495
